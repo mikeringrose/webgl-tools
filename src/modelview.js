@@ -1,16 +1,20 @@
-var transformation;
+// 
+//  modelview.js
+//  webgl
+//  
+//  Created by Mike Ringrose on 2011-03-20.
+//  Copyright 2011 __MyCompanyName__. All rights reserved.
+// 
 
-if (!transformation) 
-	transformation = {};
+// ================================
+// = The transformation namespace =
+// ================================
+var transformation = transformation || {};
 
 /**
  *  ModelView class that emulates a lot of the behavior found in OpenGL 1.1 and earlier.
  */
 transformation.ModelView = function() {
-	function _ensure4x4(m) {
-		
-	}
-	
 	/**
 	 *  Simple constructor that initializes the model view matrix to the identity matrix.
 	 */
@@ -32,6 +36,11 @@ transformation.ModelView = function() {
 		return this;
 	};
 	
+	/**
+	 * creates a rotation matrix around theta degrees around the supplied vector
+	 * @param theta degrees to rotate
+	 * @vector around which to rotate the vertex
+	 */
 	ModelView.prototype.rotate = function(theta, vector) {
 		var rads = theta * Math.PI / 180,
 			rotationMatrix = Matrix.Rotation(rads, vector).ensure4x4();
@@ -41,6 +50,10 @@ transformation.ModelView = function() {
 		return this;
 	};
 	
+	/**
+	 * simple rotation around the x-axis.
+	 * @theta degrees to rotate
+	 */
 	ModelView.prototype.rotateX = function(theta) {
 		//- rotate X
 		var rads = theta * Math.PI / 180;
@@ -52,6 +65,10 @@ transformation.ModelView = function() {
 		return this;
 	};
 	
+	/**
+	 * simple rotation around the y-axis.
+	 * @theta degrees to rotate
+	 */
 	ModelView.prototype.rotateY = function(theta) {
 		//- rotate Y
 		var rads = theta * Math.PI / 180;
@@ -63,6 +80,10 @@ transformation.ModelView = function() {
 		return this;
 	};	
 	
+	/**
+	 * simple rotation around the z-axis.
+	 * @theta degrees to rotate
+	 */	
 	ModelView.prototype.rotateZ = function(theta) {
 		//- rotate Z
 		var rads = theta * Math.PI / 180;
@@ -75,30 +96,44 @@ transformation.ModelView = function() {
 	};	
 	
 	/**
-	 *
+	 * Scales
+	 * @vector containing the scale values
 	 */
-	ModelView.prototype.scale = function(vec) {
-		this._modelViewMatrix.elements[0][0] = vec[0];
-		this._modelViewMatrix.elements[1][1] = vec[1];		
-		this._modelViewMatrix.elements[2][2] = vec[2];
+	ModelView.prototype.scale = function(vector) {
+		this._modelViewMatrix.elements[0][0] = vector[0];
+		this._modelViewMatrix.elements[1][1] = vector[1];		
+		this._modelViewMatrix.elements[2][2] = vector[2];
 		
 		return this;
 	};
 	
+	/**
+	 * Set the current model view matrix to the identity matrix.
+	 */
 	ModelView.prototype.identity = function() {
 		this._modelViewMatrix = Matrix.I(4);
 		
 		return this;
 	};
 	
+	/**
+	 * Saves the current state of the model-view matrix so that it can be restored
+	 * by a call to pop. Should this be called mark or save?
+	 */
 	ModelView.prototype.push = function() {
 		this._matrixStack.push(this._modelViewMatrix.dup());
 	};
 	
+	/**
+	 * Restores the last saved state.
+	 */
 	ModelView.prototype.pop = function() {
 		this._modelViewMatrix = this._matrixStack.pop();
 	};
 	
+	/**
+	 * Returns the a transformation matrix for the normal matrix. Takes inverse and then transpose of the model-view matrix.
+	 */
 	ModelView.prototype.getNormalMatrix = function() {
 		var normalMatrix = this._modelViewMatrix.inverse();
 		normalMatrix = normalMatrix.transpose();
@@ -116,7 +151,6 @@ transformation.ModelView = function() {
 		if (elements.length == 0)
 			return [];
 
-
 		for (var j = 0; j < elements[0].length; j++) 
 			for (var i = 0; i < elements.length; i++)
 				flats.push(elements[i][j]);
@@ -124,6 +158,9 @@ transformation.ModelView = function() {
 		return flats;
 	};
 	
+	/**
+	 * Returns the underlying matrix.
+	 */
 	ModelView.prototype.getMatrix = function() {
 		return this._modelViewMatrix;
 	}
