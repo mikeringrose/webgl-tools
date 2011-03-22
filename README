@@ -6,3 +6,4 @@ Currently dependes on sylvester.js (see http://sylvester.jcoglan.com/).
 Notes
 -----
 
+In the examples diretory are a bunch of examples from http://learningwebgl.com/blog/?p=28, changed to use webgl-tools.
