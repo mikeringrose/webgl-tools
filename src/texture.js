@@ -22,9 +22,9 @@
 // =====================
 var texture = texture || {};
 
-/**
- * Defines basic functions for handling loaded textures.
- */
+// =========================================================
+// = Defines basic functions for handling loaded textures. =
+// =========================================================
 (function() {
 	
 	var _NEAREST = function(texture) {
@@ -55,8 +55,12 @@ var texture = texture || {};
 	texture.NEAREST = _NEAREST;
 	texture.LINEAR = _LINEAR;
 	texture.MIPMAP = _MIPMAP;		
-})();
+}());
 
+/**
+ * Class that handles basic texture functionality. 
+ * TODO: Implement manager and method for disposing.
+ */
 texture.Texture = function() {	
 	/**
 	 * TODO: kind of a lazy implementation, like the rest of these tools.
