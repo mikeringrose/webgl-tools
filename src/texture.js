@@ -84,18 +84,20 @@ texture.Texture = function() {
 		this._image.src = config.src;
 	}
 	
-	/**
-	 * Returns the texture id.
-	 */
-	Texture.prototype.getTextureId = function() {
-		return this._textureId;
-	};
-	
-	/**
-	 * Returns the image.
-	 */
-	Texture.prototype.getImage = function() {
-		return this._image;
+	Texture.prototype = {
+		/**
+		 * Returns the texture id.
+		 */		
+		getTextureId: function() {
+			return this._textureId;
+		},		
+		
+		/**
+		 * Returns the underlying image.
+		 */
+		getImage: function() {
+			return this._image;
+		}
 	};
 	
 	return Texture;
