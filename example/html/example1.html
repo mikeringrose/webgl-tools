@@ -232,6 +232,8 @@
 			//- do our rotation
 			modelView.rotateY(rTri);
 			
+			modelView.scale($V([1.5, 1.0, 1.0]));			
+			
 			//- lets draw our triangle
 			gl.bindBuffer(gl.ARRAY_BUFFER, triangleVertexPositionBuffer);
 			gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, triangleVertexPositionBuffer.itemSize, gl.FLOAT, false, 0, 0);
@@ -250,10 +252,12 @@
 			
 			//- lets draw our square -//
 			
-			//- we're all ready over 1.5 to left, now move 3 to the right, so blam 1.5 to the right
+			//- we're all ready over 1.5 to left, now move 3 to the right, so blam 1.5 to the right			
 			modelView.translate($V([3.0, 0.0, 0.0]));
 			
-			modelView.rotateZ(rSquare);
+			modelView.rotateZ(rSquare);			
+			
+			modelView.scale($V([1.0, 1.5, 1.0]));			
 			
 			gl.bindBuffer(gl.ARRAY_BUFFER, squareVertexPositionBuffer);
 			gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, squareVertexPositionBuffer.itemSize, gl.FLOAT, false, 0, 0);
