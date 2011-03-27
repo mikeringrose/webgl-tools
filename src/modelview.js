@@ -70,11 +70,13 @@ transformation.ModelView = function() {
     ModelView.prototype.rotateX = function(theta) {
         //- rotate X
         var rads = theta * Math.PI / 180;
-        this._modelViewMatrix.elements[1][1] = Math.cos(rads);
-        this._modelViewMatrix.elements[1][2] = -Math.sin(rads);
-        this._modelViewMatrix.elements[2][1] = Math.sin(rads);
-        this._modelViewMatrix.elements[2][2] = Math.cos(rads);
-        
+        var m = $M([
+                [1,     0,                      0,                      0],
+                [0,     Math.cos(rads),         -Math.sin(rads),        0],
+                [0,     Math.sin(rads),         Math.cos(rads),         0],
+                [0,     0,                      0,                      1]
+            ]);  
+        this._modelViewMatrix = this._modelViewMatrix.x(m);                   
         return this;
     };
     
@@ -85,11 +87,13 @@ transformation.ModelView = function() {
     ModelView.prototype.rotateY = function(theta) {
         //- rotate Y
         var rads = theta * Math.PI / 180;
-        this._modelViewMatrix.elements[0][0] = Math.cos(rads);
-        this._modelViewMatrix.elements[0][2] = Math.sin(rads);
-        this._modelViewMatrix.elements[2][0] = -Math.sin(rads);
-        this._modelViewMatrix.elements[2][2] = Math.cos(rads);
-                
+        var m = $M([
+                [Math.cos(rads),    0,      Math.sin(rads),         0],
+                [0,                 1,      0,                      0],
+                [-Math.sin(rads),   0,      Math.cos(rads),         0],
+                [0,                 0,      0,                      1]
+            ]);                
+        this._modelViewMatrix = this._modelViewMatrix.x(m);             
         return this;
     };  
     
@@ -100,11 +104,13 @@ transformation.ModelView = function() {
     ModelView.prototype.rotateZ = function(theta) {
         //- rotate Z
         var rads = theta * Math.PI / 180;
-        this._modelViewMatrix.elements[0][0] = Math.cos(rads);
-        this._modelViewMatrix.elements[0][1] = -Math.sin(rads);
-        this._modelViewMatrix.elements[1][0] = Math.sin(rads);
-        this._modelViewMatrix.elements[1][1] = Math.cos(rads);
-        
+        var m = $M([
+                [Math.cos(rads), -Math.sin(rads), 0, 0],
+                [Math.sin(rads), Math.cos(rads), 0, 0],
+                [0, 0, 1, 0],
+                [0, 0, 0, 1]
+            ]);
+        this._modelViewMatrix = this._modelViewMatrix.x(m);        
         return this;
     };  
     
@@ -113,10 +119,13 @@ transformation.ModelView = function() {
      * @vector containing the scale values
      */
     ModelView.prototype.scale = function(vector) {
-        this._modelViewMatrix.elements[0][0] = vector[0];
-        this._modelViewMatrix.elements[1][1] = vector[1];       
-        this._modelViewMatrix.elements[2][2] = vector[2];
-        
+        var m = $M([
+                [vector.elements[0], 0, 0, 0],
+                [0, vector.elements[1], 0, 0],
+                [0, 0, vector.elements[2], 0],
+                [0, 0, 0, 1]
+            ]);
+        this._modelViewMatrix = this._modelViewMatrix.x(m);
         return this;
     };
     
