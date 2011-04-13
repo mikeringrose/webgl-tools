@@ -288,11 +288,11 @@
 			//- reset our modelView matrix
 			modelView.identity();
 			
-			//- move on over
-			modelView.translate($V([-1.5, 0.0, -7.0]));
-			
 			//- push our current matrix
 			modelView.push();
+			
+			//- move on over
+			modelView.translate($V([-1.5, 0.0, -7.0]));			
 			
 			//- do our rotation
 			modelView.rotateY(rPyramid);
@@ -316,10 +316,12 @@
 			
 			//- lets draw our square -//
 			
-			//- we're all ready over 1.5 to left, now move 3 to the right, so blam 1.5 to the right
-			modelView.translate($V([3.0, 0.0, 0.0]));
+			//- we're all ready over 1.5 to left, now move 3 to the right, so blam 1.5 to the right		
+			modelView.translate($V([-1.5, 0.0, -7.0]));
 			
-			modelView.rotateX(rCube);
+			modelView.rotateY(-rCube);	
+			
+			modelView.translate($V([0.0, 0.0, 2.50]));			
 			
 			gl.bindBuffer(gl.ARRAY_BUFFER, cubeVertexPositionBuffer);
 			gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, cubeVertexPositionBuffer.itemSize, gl.FLOAT, false, 0, 0);
@@ -358,6 +360,6 @@
 	</script>
 </head>
 	<body onload="webGLStart()">
-		<canvas id="canvas" width="500" height="500"></canvas>
+		<canvas id="canvas" width="800" height="600"></canvas>
 	</body>
 </html>

@@ -34,7 +34,7 @@
 		varying vec2 vTextureCoord;
 
 		void main(void) {
-	    	gl_Position = uPMatrix * uMVMatrix * camera * vec4(aVertexPosition, 1.0);
+	    	gl_Position = uPMatrix * camera * uMVMatrix * vec4(aVertexPosition, 1.0);
 			vTextureCoord = aTextureCoord;
 		}
 	</script>	
@@ -277,7 +277,7 @@
 			modelView.translate($V([0.0, 0.0, -7.0]));
 			
 			// modelView.rotateX(rCube);
-			modelView.rotate(rCube, $V([1, 1, 1]));
+			modelView.rotate(rCube, $V([1, 1, 1]).toUnitVector());
 			
 			gl.bindBuffer(gl.ARRAY_BUFFER, cubeVertexPositionBuffer);
 			gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, cubeVertexPositionBuffer.itemSize, gl.FLOAT, false, 0, 0);

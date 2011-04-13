@@ -29,10 +29,14 @@ transformation.ModelView = function() {
      */
     ModelView.prototype.translate = function(vec) {
         var elements = (vec instanceof Vector) ? vec.elements : vec;
-        this._modelViewMatrix.elements[0][3] += elements[0];
-        this._modelViewMatrix.elements[1][3] += elements[1];
-        this._modelViewMatrix.elements[2][3] += elements[2];
-            
+			m = $M([ 
+					[1,0,0,elements[0]],
+					[0,1,0,elements[1]],
+					[0,0,1,elements[2]],
+					[0,0,0,1]															
+					]);
+        this._modelViewMatrix = this._modelViewMatrix.x(m); 
+
         return this;
     };
     

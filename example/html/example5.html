@@ -283,7 +283,7 @@
 			modelView.translate($V([0.0, 0.0, -5.0]));
 			
 			// modelView.rotateX(rCube);
-			modelView.rotate(rCube, $V([1, 1, 1]));
+			modelView.rotate(rCube, $V([1, 1, 1]).toUnitVector());
 			
 			gl.bindBuffer(gl.ARRAY_BUFFER, cubeVertexPositionBuffer);
 			gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, cubeVertexPositionBuffer.itemSize, gl.FLOAT, false, 0, 0);
